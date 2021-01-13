@@ -1,11 +1,10 @@
-﻿# DP 200 - Implementing a Data Platform Solution
-# Lab 3 - Enabling Team Based Data Science with Azure Databricks
+# DP 200 - Implementing a Data Platform Solution
+# Lab 2 - Enabling Team Based Data Science with Azure Databricks
 
-**Estimated Time**: 75 minutes
+**Estimated Time**: 60 minutes
 
-**Pre-requisites**: It is assumed that the case study for this lab has already been read. It is assumed that the content and lab for module 1: Azure for the Data Engineer has also been completed
 
-**Lab files**: The files for this lab are located in the _Allfiles\Labfiles\Starter\DP-200.3_ folder.
+**Lab files**: The files for this lab are located in the `C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\Starter` folder inside the virtual machine.
 
 ## Lab overview
 
@@ -55,12 +54,6 @@ The main task for this exercise are as follows:
 
 1. Spend **10 minutes** documenting the digital transformation requirement and candidate data source as outlined in the case study and the scenario of this lab.
 
-### Task 2: Discuss the findings with the Instructor
-
-1. The instructor will stop the group to discuss the findings.
-
-> **Result**: After you completed this exercise, you have created a Microsoft Word document that identifies the digital transformation requirement that Azure Databricks will meet and a candidate data source.
-
 ## Exercise 2: Work with Azure Databricks
   
 Estimated Time: 20 minutes
@@ -99,6 +92,8 @@ The main tasks for this exercise are as follows:
 
     - **Deploy Azure Databricks workspace in your Virtual Network**: **No**.
 
+    - **Deploy Azure Databricks workspace in your Virtual Network**: **No**.
+
         ![Creating Azure Databricks in the Azure portal](Linked_Image_Files/M03-E02-T01-img01.png)
 
 1. In the **Azure Databricks Service** blade, click **Create**.
@@ -127,7 +122,7 @@ The main tasks for this exercise are as follows:
 
 1. In the **Create Cluster** screen, under New Cluster, create a Databricks Cluster with the following settings, and then click on **Create Cluster**:
 
-    - **Cluster name**: **awdbclstudxx**, where **xx** are your initials.
+    - **Cluster name**: **awdbclstudxxxxxx**, where **xxxxxx** is the deployment-id.
 
     - **Cluster Mode**: **Standard**
 
@@ -167,11 +162,11 @@ The main tasks for this exercise are as follows:
 
 ### Task 1: Confirm the creation of the Databricks cluster
 
-1. Return back to Microsoft Edge, under **Interactive Clusters** confirm that the state column is set to **Running** for the cluster named **awdbclstudxx**, where **xx** are your initials.
+1. Return back to Microsoft Edge, under **Interactive Clusters** confirm that the state column is set to **Running** for the cluster named **awdbclstudxxxxxx**, where **xxxxxx** is the deployment-id.
 
 ### Task 2: Collect the Azure Data Lake Store Gen2 account name
 
-1. In Microsoft Edge, click on the  Azure portal tab, click **Resource groups**, and then click **awrgstudxx**, and then click on **awdlsstudxx**, where **xx** are your initials.
+1. In Microsoft Edge, click on the  Azure portal tab, click **Resource groups**, and then click **awrgstud-xxxxxx**,where **xxxxxx** is the deployment-id, and then click on **awdlsstudxxxxxx**, where **xxxxxx** is the deployment-id.\n\n1. Scroll Down and Find **Containers** Click on **Containers** -> **logs** then click on the Upload button and upload the **preferences.json** file from `C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\Starter\DP-200.2\logs` folder.
 
 1. In the **awdlsstudxx** screen, under settings, click on **Access keys**, and then click on the copy icon next to the **Storage account name** and paste it into Notepad.
 

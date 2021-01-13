@@ -1,11 +1,10 @@
-﻿# DP 200 - Implementing a Data Platform Solution
+# DP 200 - Implementing a Data Platform Solution
 # Lab 4 - Building Globally Distributed Databases with Cosmos DB
 
 **Estimated Time**: 60 minutes
 
-**Pre-requisites**: It is assumed that the case study for this lab has already been read. It is assumed that the content and lab for module 1: Azure for the Data Engineer has also been completed
 
-**Lab files**: The files for this lab are located in the _Allfiles\Labfiles\Starter\DP-200.4_ folder.
+**Lab files**: The files for this lab are located in the _C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\Starter\DP-200.4_ folder.
 
 ## Lab overview
 
@@ -31,7 +30,7 @@ At the end of this lab, you will:
 1. Inserted and queried data in your Azure Cosmos DB database
 1. Distributed your data globally with Azure Cosmos DB
 
-> **IMPORTANT**: As you go through this lab, make a note of any issue(s) that you have encountered in any provisioning or configuration tasks and log it in the table in the document located at _\Labfiles\DP-200-Issues-Doc.docx_. Document the Lab number, note the technology, Describe the issue, and what was the resolution. Save this document as you will refer back to it in a later module.
+> **IMPORTANT**: As you go through this lab, make a note of any issue(s) that you have encountered in any provisioning or configuration tasks and log it in the table in the document located at _C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\DP-200-Issues-Doc.docx_. Document the Lab number, note the technology, Describe the issue, and what was the resolution. Save this document as you will refer back to it in a later module.
 
 ## Exercise 1: Create an Azure Cosmos DB database built to scale
 
@@ -44,6 +43,8 @@ The main task for this exercise are as follows:
 1. Create an Azure Cosmos DB instance
 
 ### Task 1: Create an Azure Cosmos DB instance
+
+1. Before starting just to familiarize, we will be using deployment id for naming convention where xxxxxx will be asked to replace with deployment id and it can be found from the environment details tab from the right side of your environment.
 
 1. In the Azure portal, if neccesary click on the **Home** hyperlink.
 
@@ -59,11 +60,11 @@ The main task for this exercise are as follows:
     
         - **Subscription**: the name of the subscription you are using in this lab
 
-        - **Resource group**: **awrgstudxx**, where **xx** are your initials
+        - **Resource group**: select the existing resource group with name **awrgstud-{deploymentId}**
 
     - In the Instance details of the screen, type in the following information
 
-        - **Account name**: **awcdbstudxx**, where **xx** are your initials.
+        - **Account name**: **awcdbstud-xxxxxx**, where **xxxxxx** is the deployment id and you can find it from the environment details tab.
 
         - **API**: **Core(SQL)**
 
@@ -79,7 +80,7 @@ The main task for this exercise are as follows:
 
 1. After the validation of the **Create Azure Cosmos DB Account** blade, click **Create**.
 
-   > **Note**: The provision will takes approximately 5 minutes. What is often avoided in these labs is a description of the additional tabs when you provision any service in Azure. You may notice that in the provisioning screen there will be additional tabs such as Network, Tags or Advanced. This enables you to define any customized settings for a service. For example, the network tab of many services enables you to define the configuration of virtual networks, so that you are able to control and secure the network traffic against a given data service. The Tags option  are name/value pairs that enable you to categorize resources and view consolidated billing by applying the same tag to multiple resources and resource groups. Advanced tabs will vary dependant on the service that has it. But it is important to note that you have control over these areas and you wil want to collaborate with your Network admins or indeed your finance department to see how these options should be configured.
+   > **Note**: The provision will takes approximately 10 - 15 minutes. What is often avoided in these labs is a description of the additional tabs when you provision any service in Azure. You may notice that in the provisioning screen there will be additional tabs such as Network, Tags or Advanced. This enables you to define any customized settings for a service. For example, the network tab of many services enables you to define the configuration of virtual networks, so that you are able to control and secure the network traffic against a given data service. The Tags option  are name/value pairs that enable you to categorize resources and view consolidated billing by applying the same tag to multiple resources and resource groups. Advanced tabs will vary dependant on the service that has it. But it is important to note that you have control over these areas and you wil want to collaborate with your Network admins or indeed your finance department to see how these options should be configured.
 
 1. When the provisioning is complete, the "Your deployment is complete" screen appears, click on **Go to resource** and move onto the next exercise. 
 
@@ -127,7 +128,7 @@ The main tasks for this exercise are as follows:
 
 ### Task 2: Add data using the portal
 
-1. In the **awcdbstudcto - Data Explorer** screen, on the Data Explorer toolbar, opposite the button for New Container, click on the **Open Full Screen** button. In the Open Full Screen dialog box, click **Open**. A new tab opens up in Microsoft Edge.
+1. In the **awcdbstud-{deploymentId} - Data Explorer** screen, on the Data Explorer toolbar, opposite the button for New Container, click on the **Open Full Screen** button. In the Open Full Screen dialog box, click **Open**. A new tab opens up in Microsoft Edge.
 
 1. In the **SQL API** pane, click in the refresh icon, and then expand **Products**, followed by **Clothing** and click on **Items**. 
 
@@ -407,7 +408,11 @@ The main tasks for this exercise are as follows:
 
 1. Managing Failover
 
-### Task 1: Replicate Data to Multiple Regions
+### Task 1: Replicate Data to Multiple Regions 
+
+ 1. In Microsoft Edge, click on the tab that states **awcdbstud-deploymentId - Data Explorer..**. 
+
+ 1. If a message appears that states "Connection error", click on the button **Refresh**.
 
 1. In Microsoft Edge, click on the tab that states **awcdbstudxx - Data Explorer..**.
 
@@ -423,7 +428,7 @@ The main tasks for this exercise are as follows:
 
 ### Task 2: Managing Failover.
 
-1. In the **awcdbstudxx - Replicate data globally** window, click on **Manual Failover**.
+1. In the **awcdbstud-deploymentId - Replicate data globally** window, click on **Manual Failover**.
 
 1. Click on the **Read Region** datacenter location, then click on the check box next to "I understand and agree to trigger a failover on my current Write Region.", and then click on **OK**.
 

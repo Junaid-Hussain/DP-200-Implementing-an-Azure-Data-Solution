@@ -1,21 +1,7 @@
-﻿# DP 200 - Implementing a Data Platform Solution
-# Lab 7 - Orchestrating Data Movement with Azure Data Factory
+# DP 200 - Implementing a Data Platform Solution
+# Lab 6 - Orchestrating Data Movement with Azure Data Factory
 
 **Estimated Time**: 70 minutes
-
-**Pre-requisites**: It is assumed that the case study for this lab has already been read. It is assumed that the content and lab for module 1: Azure for the Data Engineer has also been completed
-
-* **Azure subscription**: If you don't have an Azure subscription, create
-    a [free account](https://azure.microsoft.com/free/) before you begin.
-
-* **Azure Data Lake Storage Gen2 storage account**: If you don't have an ADLS
-    Gen2 storage account, see the instructions in [Create an ADLS Gen2 storage
-    account](https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-quickstart-create-account).
-
-* **Azure Synapse Analytics**: If you don't have a Azure Synapse Analytics account, see the instructions in [Create a SQL DW
-    account](https://docs.microsoft.com/en-us/azure/sql-data-warehouse/create-data-warehouse-portal).
-
-**Lab files**: The files for this lab are located in the _Allfiles\Labfiles\Starter\DP-200.7_ folder.
 
 ## Lab overview
 
@@ -36,14 +22,14 @@ You are assessing the tooling that can help with the extraction, load and transf
 
 In addition, the Data Scientists have asked to confirm if Azure Databricks can be called from Azure Data Factory. To that end, you will create a simple proof of concept Data Factory pipeline that calls Azure Databricks as a compute resource.
 
-At the end of this lad, you will have:
+At the end of this lab, you will have:
 
 1. Setup Azure Data Factory
 1. Ingested data using the Copy Activity
 1. Used the Mapping Data Flow task to perform transformation
 1. Performed transformations using a compute resource
 
-> **IMPORTANT**: As you go through this lab, make a note of any issue(s) that you have encountered in any provisioning or configuration tasks and log it in the table in the document located at _\Labfiles\DP-200-Issues-Doc.docx_. Document the Lab number, note the technology, Describe the issue, and what was the resolution. Save this document as you will refer back to it in a later module.
+> **IMPORTANT**: As you go through this lab, make a note of any issue(s) that you have encountered in any provisioning or configuration tasks and log it in the table in the document located at C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\Starter\DP-200-Issues-Doc.docx_. Document the Lab number, note the technology, Describe the issue, and what was the resolution. Save this document as you will refer back to it in a later module.
 
 ## Exercise 1: Setup Azure Data Factory
 
@@ -57,18 +43,26 @@ The main task for this exercise are as follows:
 
 ### Task 1: Setting up Azure Data Factory.
 
+1. Before starting just to familiarize, we will be using deployment id for naming convention where xxxxxx will be asked to replace with deployment id and it can be found from the environment details tab from the right side of your environment.
+
 Create your data factory: Use the [Azure Portal](https://portal.azure.com) to create your Data Factory. 
 
 1. In Microsoft Edge, go to the Azure portal tab, click on the **+ Create a resource** icon, type **factory**, and then click **Data Factory** from the resulting search, and then click **Create**.
 
 1. In the New Data Factory screen, create a new Data Factory with the following options, then click **Create**:
-    - **Name**: xx-data-factory, where xx are your initials
+    - **Name**: data-factory-xxxxxx, where xxxxxx is the deployment id
     - **Version**: V2
+    - **Subscription**: Your subscription
+    - **Resource group**: awrgstud-deploymentId
+    - **Location**: east us
+    - click on next : Git Configuration
+    - **Configure Git later**: checked
     - **Subscription**: Your subscription
     - **Resource group**: awrgstudxx
     - **Location**: select the location closest to you
     - **Enable GIT**: unchecked
     - Leave other options to their default settings
+    - Click **Review+Create** and then Click Create
 
         ![Creating Azure Data Factory in the Azure Portal](Linked_Image_Files/M07-E01-T01-img01.png)
 
@@ -109,13 +103,13 @@ The main tasks for this exercise are as follows:
 
 ### Task 2: Create a new HTTP dataset to use as a source
 
-1. In the Source tab of the Copy activity settings, click **+ New**
+1. Click on the copy data activity tab, and below navigate to the **Source** tab of the Copy activity settings, click **+ New**
 
 1. In the data store list, select the **HTTP** tile and click continue
 
 1. In the file format list, select the **DelimitedText** format tile and click continue
 
-1. In Set Properties blade, give your dataset an understandable name such as **HTTPSource** and click on the **Linked Service** dropdown. If you have not created your HTTP Linked Service, select **New**.
+1. In Set Properties blabe, give your dataset an understandable name such as **HTTPSource** and click on the **Linked Service** dropdown. If you have not created your HTTP Linked Service, select **New**.
 
 1. In the New Linked Service (HTTP) screen, specify the url of the moviesDB csv file. You can access the data with no authentication required using the following endpoint:
 
@@ -144,15 +138,15 @@ The main tasks for this exercise are as follows:
 
 1. Select the **DelimitedText** format tile and click **Continue**.
 
-1. In Set Properties blade, give your dataset an understandable name such as **ADLSG2** and click on the **Linked Service** dropdown. If you have not created your ADLS Linked Service, select **New**.
+1. In Set Properties blabe, give your dataset an understandable name such as **ADLSG2** and click on the **Linked Service** dropdown. If you have not created your ADLS Linked Service, select **New**.
 
-1. In the New linked service (Azure Data Lake Storage Gen2) blade, select your authentication method as **Account key**, select your **Azure Subscription** and select your Storage account name of **awdlsstudxx**. You will see a screen as follows:
+1. In the New linked service (Azure Data Lake Storage Gen2) blabe, select your authentication method as **Account key**, select your **Azure Subscription** and select your Storage account name of **awdlsstudxx**. You will see a screen as follows:
 
    ![Create a Sink in Azure Data Factory in the Azure Portal](Linked_Image_Files/M07-E02-T03-img01.png)
 
 1. Click on **Create**
 
-1. Once you have configured your linked service, you enter the set properties blade. As you are writing to this dataset, you want to point the folder where you want moviesDB.csv copied to. In the example below, I am writing to folder **output** in the file system **data**. While the folder can be dynamically created, the file system must exist prior to writing to it. Set **First row as header** to be true. You can either Import schema from **sample file** (use the moviesDB.csv file from **Labfiles\Starter\DP-200.7\SampleFiles**)  
+1. Once you have configured your linked service, you enter the set properties blabe. As you are writing to this dataset, you want to point the folder where you want moviesDB.csv copied to. In the example below, I am writing to folder **output** in the file system **data**. While the folder can be dynamically created, the file system must exist prior to writing to it. Set **First row as header** to be true. You can either Import schema from **sample file** (use the moviesDB.csv file from **Labfiles\Starter\DP-200.7\SampleFiles**)  
 
    ![Setting properties of a Sink in Azure Data Factory in the Azure Portal](Linked_Image_Files/M07-E02-T03-img02.png)
 
@@ -197,29 +191,35 @@ The main tasks for this exercise are as follows:
 
     > NOTE: Data Flow clusters take 5-7 minutes to warm up.
 
-1. **Add a Data Flow activity** In the Activities pane, open the Move and Transform accordion and drag the **Data Flow** activity onto the pipeline canvas. In the blade that pops up, click **Create new Data Flow** and select **Mapping Data Flow** and then click **OK**. Click on the  **pipeline1** tab and drag the green box from your Copy activity to the Data Flow Activity to create an on success condition. You will see the following in the canvass:
+1. **Add a Data Flow activity** In the Activities pane, open the Move and Transform accordion and drag the **Data Flow** activity onto the pipeline canvas. In the blabe that pops up, click **Create new Data Flow** and select **Mapping Data Flow** and then click **OK**. Click on the  **pipeline1** tab and drag the green box from your Copy activity to the Data Flow Activity to create an on success condition. You will see the following in the canvass:
 
     ![Adding a Mapping Data Flow in Azure Data Factory](Linked_Image_Files/M07-E03-T01-img01.png)
 
 ### Task 2: Adding a Data Source
+
+1. Double-click on the dataflow tab to create a dataflow structure.
+
+1. Click on the **Add Source** button.
 
 1. **Add an ADLS source** Double click on the Mapping Data Flow object in the canvas. Click on the Add Source button in the Data Flow canvas. In the **Source dataset** dropdown, select your **ADLSG2** dataset used in your Copy activity
 
     ![Adding a Source to a Mapping Data Flow in Azure Data Factory](Linked_Image_Files/M07-E03-T02-img01.png)
 
 
-    * If your dataset is pointing at a folder with other files, you may need to create another dataset or utilize parameterization to make sure only the moviesDB.csv file is read
+1. If you have not imported your schema in your ADLS, but have already ingested your data, go to the dataset's 'Schema' tab and click 'Import schema' so that your data flow knows the schema projection.
     * If you have not imported your schema in your ADLS, but have already ingested your data, go to the dataset's 'Schema' tab and click 'Import schema' so that your data flow knows the schema projection.
 
     Once your debug cluster is warmed up, verify your data is loaded correctly via the Data Preview tab. Once you click the refresh button, Mapping Data Flow will show calculate a snapshot of what your data looks like when it is at each transformation.
   
 ### Task 3: Using Mapping Data Flow transformation
 
+1. Please read the instructions carefully and if any doubts, you can also refer the images.
+
 1. **Add a Select transformation to rename and drop a column** In the preview of the data, you may have noticed that the "Rotton Tomatoes" column is misspelled. To correctly name it and drop the unused Rating column, you can add a [Select transformation](https://docs.microsoft.com/azure/data-factory/data-flow-select) by clicking on the + icon next to your ADLS source node and choosing Select under Schema modifier.
     
     ![Adding a Transformation to a Mapping Data Flow in Azure Data Factory](Linked_Image_Files/M07-E03-T03-img01.png)
 
-    In the **Name** as field, change 'Rotton' to 'Rotten'. To drop the Rating column, hover over it and click on the trash can icon.
+    In the **Name as** field, change 'Rotton' to 'Rotten'. To drop the Rating column, hover over it and click on the trash can icon. (Scroll down to see the columns)
 
     ![Using the Select Transformation to a Mapping Data Flow in Azure Data Factory](Linked_Image_Files/M07-E03-T03-img02.png)
 
@@ -253,26 +253,67 @@ The main tasks for this exercise are as follows:
 
     ![Using the Aggregate Transformation to a Mapping Data Flow in Azure Data Factory](Linked_Image_Files/M07-E03-T03-img10.png)
 
-    In the Aggregates tab, you can aggregations calculated over the specified group by columns. For every genre and year, lets get the average Rotten Tomatoes rating, the highest and lowest rated movie (utilizing the windowing function) and the number of movies that are in each group. Aggregation significantly reduces the amount of rows in your transformation stream and only propagates the group by and aggregate columns specified in the transformation.
+    In the Aggregates tab, you can aggregations calculated over the specified group by columns. For every genre and year, lets get the average Rotten Tomatoes rating, the highest and lowest rated movie (utilizing the windowing function) and the number of movies that are in each group. Aggregation significantly reduces the amount of rows in your transformation stream and only propagates the group by and aggregate columns specified in the transformation. Provide the following values as shown in the image.
+    **Note:- while entering these names please enter the column names correctly and also check no spaces etc. are entered accidentally**
+    * AverageRating - avg(toInteger({Rotten Tomato}))
+    Add the following columns also :-
+    * HighestRated  - first(title)
+    * LowestRated   - last(title)
+    * NumberOfMovies - count()
 
     ![Configuring the Aggregate Transformation to a Mapping Data Flow in Azure Data Factory](Linked_Image_Files/M07-E03-T03-img11.png)
 
     * To see how the aggregate transformation changes your data, use the Data Preview tab
    
 
-1. **Specify Upsert condition via an Alter Row Transformation** If you are writing to a tabular sink, you can specify insert, delete, update and upsert policies on rows using the [Alter Row transformation](https://docs.microsoft.com/azure/data-factory/data-flow-alter-row) by clicking on the + icon next to your Aggregate transformation and clicking Alter Row under Row modifier. Since you are always inserting and updating, you can specify that all rows will always be upserted.
+1. **Specify Upsert condition via an Alter Row Transformation** If you are writing to a tabular sink, you can specify insert, delete, update and upsert policies on rows using the [Alter Row transformation](https://docs.microsoft.com/azure/data-factory/data-flow-alter-row) by clicking on the + icon next to your Aggregate transformation and clicking Alter Row under Row modifier.
+
+1. Since you are always inserting and updating, you can specify that all rows will always be upserted. in alter row conditions select Upsert If and set to true()
+
+### Task 4: Create a SQL Data Warehouse database
+
+1. Navigate to your windows virtual machine desktop, click on the **Search**, and type **"SQL Server"** and then click on **Microsoft SQL Server Management Studio 18**
+
+1. In the **Connect to Server** dialog box, fill in the following details
+    - Server Name: **dwhservice-deploymentID.database.windows.net** (navigate to resource group awrgstud-deploymentId and click on sql server dwhservice-deployment and from the overview copy the server name)
+    - Authentication: **SQL Server Authentication**
+    - Username: **sqladmin**
+    - Password: **Pa55w.rd**
+
+1. In the **Connect to Server** dialog box, click **Connect**
+
+1. In **SQL Server Management Studio**, in Object Explorer, right click **dwhservice-deploymentID.database.windows.net** and click on **New Query**.
+
+1. In the query window, create a DataWarehouse database named **DWDB**, with a service objective of DW100 and a maximum size of 1024GB. Click on **Execute**.
+
+    ```SQL
+    CREATE DATABASE DWDB COLLATE SQL_Latin1_General_CP1_CI_AS
+    (
+        EDITION             = 'DataWarehouse'
+    ,   SERVICE_OBJECTIVE   = 'DW100C'
+    ,   MAXSIZE             = 1024 GB
+    );
+    ```
+
+    > **Note**: The creation of the database takes approximately 2 minutes.
+
+1. Create a **master key** against the **DWDB** database. Expand dwhservice-deploymentID.database.windows.net in Object explorer , click databases and then right click on DWDB , select **NEW QUERY**. In the query editor, type in the following code and Click on **Execute**.
+
+    > **Note:-** if a pop-up appears click **yes always**
 
     ![Using the Alter Row Transformation to a Mapping Data Flow in Azure Data Factory](Linked_Image_Files/M07-E03-T03-img12.png)
 
     
 
-### Task 4: Writing to a Data Sink
+### Task 5: Writing to a Data Sink
+
+1. Navigate back to data factory tab.
 
 1. **Write to a Azure Synapse Analytics Sink** Now that you have finished all your transformation logic, you are ready to write to a Sink.
     1. Add a **Sink** by clicking on the **+ icon** next to your Upsert transformation and clicking Sink under Destination.
     1. In the Sink tab, create a new data warehouse dataset via the **+ New button**.
     1. Select **Azure Synapse Analytics** from the tile list.
-    1. Select a new linked service and configure your Azure Synapse Analytics connection to connect to the DWDB database created in Module 5. Click **Create** when finished.
+    1. Select a new linked service and configure your Azure Synapse Analytics connection to connect to the DWDB database created in the previous step. Click **Create** when finished.
     ![Creating an Azure Synapse Analytics connection in Azure Data Factory](Linked_Image_Files/M07-E03-T04-img01.png)
     1. In the dataset configuration, select **Create new table** and enter in the schema of **Dbo** and the  table name of **Ratings**. Click **OK** once completed.
     ![Creating an Azure Synapse Analytics table in Azure Data Factory](Linked_Image_Files/M07-E03-T04-img02.png)
@@ -284,7 +325,11 @@ At this point, You have finished building your 8 transformation Mapping Data Flo
 
 ## Task 5: Running the Pipeline
 
+1. Make sure you have data flow debug selected.
+
 1. Go to the pipeline1 tab in the canvas. Because Azure Synapse Analytics in Data Flow uses [PolyBase](https://docs.microsoft.com/sql/relational-databases/polybase/polybase-guide?view=sql-server-2017), you must specify a blob or ADLS staging folder. In the Execute Data Flow activity's settings tab, open up the PolyBase accordion and select your ADLS linked service and specify a staging folder path.
+
+1. **Note:-** If the validation shows error "PrimaryGenre does not exist in mapped columns" , please try to create the dataflow from scratch.
 
     ![PolyBase configuration in Azure Data Factory](Linked_Image_Files/M07-E03-T05-img01.png)
 
@@ -292,7 +337,7 @@ At this point, You have finished building your 8 transformation Mapping Data Flo
 
 1. Once both activities succeeded, you can click on the eyeglasses icon next to the Data Flow activity to get a more in depth look at the Data Flow run.
 
-1. If you used the same logic described in this lab, your Data Flow should will written 737 rows to your SQL DW. You can go into [SQL Server Management Studio](https://docs.microsoft.com/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017) to verify the pipeline worked correctly and see what got written.
+1. To check the values right click DWDB database and in new query enter the mentioned queries - **select count(*) as TotalCount From Dbo.Ratings** , **select * from Dbo.Ratings**
 
     ![Querying the results in SQL Server Management Studio](Linked_Image_Files/M07-E03-T05-img02.png)
 
@@ -316,7 +361,7 @@ The main tasks for this exercise are as follows:
 
 ### Task 1: Generate a Databricks Access Token.
 
-1. In the Azure portal, click on **Resource groups** and then click on **awrgstudxx**, and then click on **awdbwsstudxx** where xx are the initials of your name.
+1. In the Azure portal, click on **Resource groups** and then click on **awrgstudxx**, and then click on **xxxxxx** where xxxxxx is the deployment id.
 
 1. Click on **Launch Workspace**
 
@@ -330,7 +375,7 @@ The main tasks for this exercise are as follows:
 
 1. Copy the generated token and store in Notepad, and then click on **Done**.
 
-### Task 2: Generate a Databricks Notebook
+1. Please ensure if the cluster is running. Click on **Clusters** from left navigation bar , select **awdbclstud** and click on start.
 
 1. On the left of the screen, click on the **Workspace** icon, then click on the arrow next to the word Workspace, and click on **Create** and then click on **Folder**. Name the folder **adftutorial**, and click on **Create Folder**. The adftutorial folder appears in the Workspace.
 
@@ -356,22 +401,23 @@ The main tasks for this exercise are as follows:
 
 1. In Microsoft Edge, click on the tab for the portal In the Azure portal, and return to Azure Data Factory.
 
-1. In the **xx-data-factory** screen, click on **Author & Monitor**. Another tab opens up to author an Azure Data Factory solution.
+1. In the **data-factory-deploymentId** screen, click on **Author & Monitor**. Another tab opens up to author an Azure Data Factory solution.
 
-1. On the left hand side of the screen, click on the **Author** icon. This opens up the Data Factory designer.
+1. On the left hand side of the screen, click on the **Manage** icon. This opens Connections section.
 
-1. At the bottom of the screen, click on **Connections**, and then click on **+ New**.
+1. Under **Connections**, u can find linked services and then click on **+ New**.
 
 1. In the **New Linked Service**, at the top of the screen, click on **Compute**, and then click on **Azure Databricks**, and then click on **Continue**.
 
 1. In the **New Linked Service (Azure Databricks)** screen, fill in the following details and click on **Finish**
-    - **Name**: xx_dbls, where xx are your initials
-    - **Databricks Workspace**: awdbwsstudxx, where xx are your initials
-    - **Select cluster**: use existing
+    - **Name**: dbls
+    - **Databricks Workspace**: xxxxxx, where xxxxxx is the deployment id
+    - **Select cluster**: Existing interactive cluster
     - **Domain/ Region**: should be populated
     - **Access Token**: Copy the access token from Notepad and paste into this field
-    - **Choose from existing cluster**: awdbclstudxx, where xx are your initials
+    - **Choose from existing cluster**: awdbclstud
     - Leave other options to their default settings
+    - Click **Review+Create** and then Click Create
 
     > **Note**: When you click on finish, you are returned to the **Author & Monitor** screen where the xx_dbls has been created, with the other linked services created in the previous exercize.
 
@@ -389,7 +435,7 @@ The main tasks for this exercise are as follows:
 
 1. In the properties for the **Notebook1** window at the bottom, complete the following steps:
     - Switch to the **Azure Databricks** tab.
-    - Select **xx_dbls** which you created in the previous procedure.
+    - Select **dbls** which you created in the previous procedure.
 
     - Switch to the **Settings** tab, and put **/adftutorial/mynotebook** in Notebook path.
     - Expand **Base Parameters**, and then click on **+ New**
@@ -424,4 +470,3 @@ No errors were found." Click on the >> to close the window.
 
 1. Click on the cluster **awdbclstudxx**, and then click on the **Event Log** to view the activities.
 
-    > **Note**: You should see an Event Type of **Starting** with the time you triggered the pipeline run.

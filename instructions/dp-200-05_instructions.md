@@ -1,11 +1,10 @@
-﻿# DP 200 - Implementing a Data Platform Solution
-# Lab 5 - Working with Relational Data Stores in the Cloud
+# DP 200 - Implementing a Data Platform Solution
+# Lab 4 - Working with Relational Data Stores in the Cloud
 
 **Estimated Time**: 75 minutes
 
-**Pre-requisites**: It is assumed that the case study for this lab has already been read. It is assumed that the content and lab for module 1: Azure for the Data Engineer has also been completed
 
-**Lab files**: The files for this lab are located in the _Allfiles\Labfiles\Starter\DP-200.5_ folder.
+**Lab files**: The files for this lab are located in the _C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\Starter\DP-200.5_ folder.
 
 ## Lab overview
 
@@ -26,14 +25,14 @@ You are the senior data engineer at AdventureWorks, and you are working with you
 
 You will then provision Azure Synapse Analytics server and test that the provisioning of the server is successful by testing a sample database with a series of queries. You will then use PolyBase to load a dimension table from Azure Blob to test that the integration of this data platform technology with Azure Synapse Analytics.
 
-At the end of this lad, you will have:
+At the end of this lab, you will have:
 
 1. Used Azure SQL Database
 1. Described Azure Synapse Analytics 
 1. Created and queryied Azure Synapse Analytics 
 1. Used PolyBase to doad data into Azure Synapse Analytics 
 
-> **IMPORTANT**: As you go through this lab, make a note of any issue(s) that you have encountered in any provisioning or configuration tasks and log it in the table in the document located at _\Labfiles\DP-200-Issues-Doc.docx_. Document the Lab number, note the technology, Describe the issue, and what was the resolution. Save this document as you will refer back to it in a later module.
+> **IMPORTANT**: As you go through this lab, make a note of any issue(s) that you have encountered in any provisioning or configuration tasks and log it in the table in the document located at _C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\DP-200-Issues-Doc.docx_. Document the Lab number, note the technology, Describe the issue, and what was the resolution. Save this document as you will refer back to it in a later module.
 
 ## Exercise 1: Use Azure SQL Database
 
@@ -47,7 +46,7 @@ The main task for this exercise are as follows:
 
 ### Task 1: Create and configure a SQL Database instance.
 
-1. In the Azure portal, navigate to the **+ Create a resource** blade.
+1. In the Azure portal, navigate to the **+ Create a resource** blabe.
 
 1. In the New screen, click the **Search the Marketplace** text box, and type the word **SQL Database**. Click **SQL Database** in the list that appears.
 
@@ -59,7 +58,7 @@ The main task for this exercise are as follows:
     
         - **Subscription**: the name of the subscription you are using in this lab
 
-        - **Resource group**: **awrgstudxx**, where **xx** are your initials.
+        - **Resource group**: select existing resource group with name **awrgstud-DeploymentId**.
 
     - Click on the  **Additional setting** tab, click **Sample** . The AdventureworksLT sample database is selected automatically. 
     
@@ -70,8 +69,8 @@ The main task for this exercise are as follows:
         - Database name: type in **AdventureworksLT**
      
         - Server: Create a new server by clicking **Create new** with the following settings and click on **OK**:
-            - **Server name**: **sqlservicexx**, where **xx** are your initials
-            - **Server admin login**: **xxsqladmin**, where **xx** are your initials
+            - **Server name**: **sqlservice-xxxxx**, where **xxxxxx** is the deploymentId and you can find it from the environment details tab.
+            - **Server admin login**: **xxsqlabmin**, where **xx** are your initials
             - **Password**: **Pa55w.rd**
             - **Confirm Password**: **Pa55w.rd**
             - **Location**: choose a **location** near to you.
@@ -84,9 +83,9 @@ The main task for this exercise are as follows:
 
     ![Creating a SQL Database in the Azure portal](Linked_Image_Files/M05-E01-T01-img02.png)
 
-1. In the **Create SQL Database** blade, click **Review + create**.
+1. In the **Create SQL Database** blabe, click **Review + create**.
 
-1. After the validation of the **Create SQL Database*** blade, click **Create**.
+1. After the validation of the **Create SQL Database*** blabe, click **Create**.
 
    > **Note**: The provision will takes approximately 4 minutes.
 
@@ -112,17 +111,17 @@ The main tasks for this exercise are as follows:
 
 1. In the Azure portal, click **+ Create a resource**.
 
-1. In the New blade, navigate to the **Search the Marketplace** text box, and type the word **Synapse**. Click **Azure Synapse Analytics (formerly SQL DW)** in the list that appears.
+1. In the New blabe, navigate to the **Search the Marketplace** text box, and type the word **Synapse**. Click **Azure Synapse Analytics (formerly SQL DW)** in the list that appears.
 
-1. In the **Azure Synapse Analytics (formerly SQL DW)** blade, click **Create**.
+1. In the **Azure Synapse Analytics (formerly SQL DW)** blabe, click **Create**.
 
-1. From the **SQL Data Warehouse** blade, create an Azure Synapse Analytics  with the following settings:
+1. From the **SQL Data Warehouse** blabe, create an Azure Synapse Analytics  with the following settings:
 
     - In the Project details section, type in the following information
 
         - **Subscription**: the name of the subscription you are using in this lab
 
-        - **Resource group**: **awrgstudxx**, where **xx** are your initials.
+        - **Resource group**: select existing resource group with name **awrgstud-DeploymentId**.
 
     - In **Additional setting** tab, under data source, click **Sample**.
 
@@ -134,7 +133,7 @@ The main tasks for this exercise are as follows:
 
         - **Server**: Create a new server by clicking **Create new** with the following settings and click on **OK**:
             - **Server name**: **dwhservicexx**, where **xx** are your initials
-            - **Server admin login**: **xxsqladmin**, where **xx** are your initials
+            - **Server admin login**: **xxsqlabmin**, where **xx** are your initials
             - **Password**: **Pa55w.rd**
             - **Confirm Password**: **Pa55w.rd**
             - **Location**: choose a **location** near to you.
@@ -153,13 +152,13 @@ The main tasks for this exercise are as follows:
 
 1. In the **SQL Data Warehouse** screen, click **Review + create**.
 
-1. In the **SQL Data Warehouse** blade, click **Create**.
+1. In the **SQL Data Warehouse** blabe, click **Create**.
 
-   > **Note**: The provision will takes approximately 7 minutes.
+    - **Note:-** Please use the slider to set and select **DW100C**.
 
 ### Task 2: Configure the Server Firewall
 
-1. In the Azure portal, in the blade, click **Resource groups**, and then click **awrgstudxx**, and then click on **awdlsstudxx**, where **xx** are your initials
+1. In the Azure portal, in the blabe, click **Resource groups**, and then click **awrgstudxx**, and then click on **awdlsstudxx**, where **xx** are your initials
 
 1. Click on **dwhservicexx**, where **xx** are your initials.
 
@@ -170,6 +169,10 @@ The main tasks for this exercise are as follows:
     ![Configuring Azure Synapse Analytics firewall settings in the Azure portal](Linked_Image_Files/M05-E02-T02-img01.png)
 
     > **Note**: You will receive a message stating that the the server firewall rules have been successfully updated
+
+1. But for this lab, we will be adding all ips just for performing this lab.
+
+1. Add a new Rule by entering **ALLIPS** in the **Rule Name** then **Start IP** as **0.0.0.0** and **End IP** as **255.255.255.255** and press enter and click Save At the top.
 
 1. Close down the Firewalls and virtual networks screen.
 
@@ -199,11 +202,11 @@ The main tasks for this exercise are as follows:
 
 1. Create SQL Data Warehouse tables
 
-    > **Note**: If you are not familiar with Transact-SQL, statements are available for the following labs in the following location **Allfiles\Labfiles\Starter\DP-200.5\SQL DW Files**
+    > **Note**: If you are not familiar with Transact-SQL, statements are available for the following labs in the following location **C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\Starter\DP-200.5\SQL DW Files**
 
 ### Task 1: Install SQL Server Management Studio and connect to a SQL Data Warehouse instance.
 
-1. In the Azure Portal, in the **dwhservicexx - Firewalls and virtual networks**, in the blade, click on **Properties**
+1. In the Azure Portal, in the **dwhservicexx - Firewalls and virtual networks**, in the blabe, click on **Properties**
 
 1. Copy the **"Server name"** and paste it into Notepad.
 
@@ -214,7 +217,7 @@ The main tasks for this exercise are as follows:
 1. In the **Connect to Server** dialog box, fill in the following details
     - Server Name: **dwhservicexx.database.windows.net**
     - Authentication: **SQL Server Authentication**
-    - Username: **xxsqladmin**
+    - Username: **xxsqlabmin**
     - Password: **Pa55w.rd**
 
 1. In the **Connect to Server** dialog box, click **Connect** 
@@ -243,7 +246,7 @@ The main tasks for this exercise are as follows:
 
 1. In **SQL Server Management Studio**, in SQL Editor toolbar, in **Available Databases**, click on **DWDB**.
 
-    >**Note**: If you are unfamiliar with Transact-SQL, there is a script in the Allfiles\Solution\DP-200.5\folder named **Exercise3 Task3Step2 script.sql**. It contains the bulk of the code required to create the tables, but you do have to complete the code by selecting the distribution type to use for each table 
+    >**Note**: If you are unfamiliar with Transact-SQL, there is a script in the C:\AllFiles\DP-200-Implementing-an-Azure-Data-Solution-master\Labfiles\Solution\DP-200.5\folder named **Exercise3 Task3 Step2 script.sql**. It contains the bulk of the code required to create the tables, but you do have to complete the code by selecting the distribution type to use for each table 
 
 1. Create a table named **dbo.Users** with a **clustered columnstore** index with a distribution of **replicate** with the following columns:
 
@@ -309,7 +312,7 @@ The main tasks for this exercise are as follows:
 
 ### Task 1: Collect Azure Blob account name and key details
 
-1. In the Azure portal, click on **Resource groups** and then click on **awrgstudxx**, and then click on **awdlsstudxx** where xx are the initials of your name.
+1. In the Azure portal, click on **Resource groups**,  click on **awrgstud-deploymentID** resource group, and then click on **awdlsstudxxxxxx** storage account where **xxxxxx** is the deployment ID .
 
 1. In the **awdlsstudxx** screen, click **Access keys**. Click on the icon next to the **Storage account name** and paste it into Notepad.
 
@@ -347,7 +350,7 @@ The main tasks for this exercise are as follows:
 	CREATE EXTERNAL DATA SOURCE AzureStorage
     WITH (
         TYPE = HADOOP,
-        LOCATION = 'abfs://data@awdlsstudxx.dfs.core.windows.net',
+        LOCATION = 'abfs://data@awdlsstudxxxxxx.dfs.core.windows.net',
         CREDENTIAL = AzureStorageCredential
     );
     ```
